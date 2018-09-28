@@ -116,6 +116,7 @@ export default class PDFDriver extends React.Component {
     return pages.map((v, i) => (
       (<PDFPage
         index={i + 1}
+        key={pages}
         pdf={pdf}
         containerWidth={containerWidth}
         zoom={zoom * INCREASE_PERCENTAGE}
