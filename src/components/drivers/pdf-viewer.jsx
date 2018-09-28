@@ -2,8 +2,8 @@
 
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
-import { PDFJS } from 'pdfjs-dist/build/pdf.combined';
-import 'pdfjs-dist/web/compatibility';
+import { PDFJS } from 'pdfjs-dist/build/pdf.js';
+
 
 PDFJS.disableWorker = true;
 const INCREASE_PERCENTAGE = 0.2;
@@ -116,7 +116,6 @@ export default class PDFDriver extends React.Component {
     return pages.map((v, i) => (
       (<PDFPage
         index={i + 1}
-        key={pages}
         pdf={pdf}
         containerWidth={containerWidth}
         zoom={zoom * INCREASE_PERCENTAGE}
