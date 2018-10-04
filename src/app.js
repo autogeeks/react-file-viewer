@@ -22,8 +22,8 @@ import pdf from '../example_files/sample.pdf';
 
 ReactDOM.render(
   <FileViewer
-    fileType="pdf"
-    filePath={pdf}
+    fileType="jpg"
+    filePath={solarImage}
   />,
   window.document.getElementById('app')
 );

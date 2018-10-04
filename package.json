@@ -1,12 +1,12 @@
 {
-  "name": "react-file-viewer",
-  "version": "0.5.0",
+  "name": "testcenter-fileviewer",
+  "version": "0.0.2",
   "description": "Extendable file viewer for web",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/plangrid/react-file-viewer.git"
+    "url": "git+https://github.com/ViljarVoidula/react-file-viewer.git"
   },
   "scripts": {
     "dev": "webpack -d --watch",
@@ -31,6 +31,10 @@
     {
       "name": "Viktoriya Savkina",
       "email": "viktoriya.savkina@gmail.com"
+    },
+    {
+      "name": "Viljar Võidula",
+      "email": "viljar@testreel.com"
     }
   ],
   "license": "MIT",
