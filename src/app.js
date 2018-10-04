@@ -8,6 +8,7 @@ import FileViewer from './components/file-viewer';
 import sampleHouse from '../example_files/SampleHouse.wexbim';
 import solarImage from '../example_files/02-USVI-Solar.jpg';
 import top from '../example_files/top.png'
+import undef from '../example_files/undefined_object.png'
 import docx from '../example_files/SampleSpec.docx';
 import doc from '../example_files/sample.doc';
 import csv from '../example_files/Total_Crime.csv';
@@ -34,7 +35,7 @@ class renderFiles extends React.Component {
   }
 
   render() {
-    const files = [top,solarImage,csv,pdf,mp4]; 
+    const files = [top,undef,solarImage,csv,pdf,mp4]; 
     const active = this.state.active;
     return (
       <div>

@@ -51,12 +51,13 @@ export default class PhotoViewerWrapper extends Component {
     );
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (this.props.filePath && this.props.filePath !== prevProps.filePath) {
     // spike on using promises and a different loader or adding three js loading manager
-    const loader = new THREE.TextureLoader();
-    loader.crossOrigin = '';
+      const loader = new THREE.TextureLoader();
+      loader.crossOrigin = '';
     // load a resource
-    loader.load(
+      loader.load(
       // resource URL
       this.props.filePath,
       // Function when resource is   loaded
@@ -75,6 +76,7 @@ export default class PhotoViewerWrapper extends Component {
         console.log('An error happened', xhr);
       },
     );
+    }
   }
 
   render() {
