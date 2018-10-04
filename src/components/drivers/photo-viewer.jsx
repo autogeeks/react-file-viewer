@@ -18,9 +18,13 @@ export default class PhotoViewer extends Component {
     if (this.props.texture.image && this.props.texture.image !== prevProps.texture.image) {
       const { originalWidth, originalHeight } = this.props;
       const imageDimensions = this.getImageDimensions.call(this, originalWidth, originalHeight);
+      const container = document.getElementById('pg-photo-container');
+
       this.props.texture.image.style.width = `${imageDimensions.width}px`;
       this.props.texture.image.style.height = `${imageDimensions.height}px`;
       this.props.texture.image.setAttribute('class', 'photo');
+      // Removing old container before creating new one
+      document.getElementById('pg-photo-container').removeChild(container.childNodes[0]);
       document.getElementById('pg-photo-container').appendChild(this.props.texture.image);
     }
   }

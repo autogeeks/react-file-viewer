@@ -51,6 +51,32 @@ export default class PhotoViewerWrapper extends Component {
     );
   }
 
+  componentDidUpdate() {
+    // spike on using promises and a different loader or adding three js loading manager
+    const loader = new THREE.TextureLoader();
+    loader.crossOrigin = '';
+    // load a resource
+    loader.load(
+      // resource URL
+      this.props.filePath,
+      // Function when resource is   loaded
+      (texture) => {
+        this.setState({
+          originalWidth: texture.image.width,
+          originalHeight: texture.image.height,
+          imageLoaded: true,
+          texture,
+        });
+      },
+      (xhr) => {
+        console.log(`${xhr.loaded / xhr.total * 100}% loaded`);
+      },
+      (xhr) => {
+        console.log('An error happened', xhr);
+      },
+    );
+  }
+
   render() {
     if (!this.state.imageLoaded) {
       return <Loading />;
