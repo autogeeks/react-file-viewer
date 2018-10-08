@@ -1,7 +1,6 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
 import 'styles/main.scss';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FileViewer from './components/file-viewer';
@@ -23,31 +22,88 @@ import rtf from '../example_files/sample.rtf';
 import pdf from '../example_files/sample.pdf';
 
 const getFileType = (file)=>{
-  return file.substr(file.length - 3)
+  const extension = file.match(/([^./]+$)/);
+  return extension[0];
 }
 
+
 class renderFiles extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      active: 0
+      active: 0,
+      isLoading: false,
+      files: []
     }
+
+    this.files = [top, undef, solarImage, csv, pdf, mp4, mp3, mov, avi ];
   }
 
+  componentDidMount() {
+    this.setState({ isLoading: true });
+    this.files.map(file => this.loadFiles(file));
+    this.setState({ isLoading: false });
+  }
+
+  loadFiles(file) {
+    // Create XHR and FileReader objects
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("GET", file, true);
+    // Set the responseType to blob
+    xhr.responseType = "blob";
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Load blob as Data URL
+        this.readFiles(xhr.response);
+      }
+    }.bind(this);
+    // Send XHR
+    xhr.send();
+  }
+
+  readFiles(rawFile) {
+  
+    // init reader
+    const reader = new FileReader();
+    // file to uri
+    reader.readAsDataURL(rawFile);
+    
+    // file read success
+    reader.onload = () => {
+      this.setState({ files: [...this.state.files, reader.result] });
+      return;
+    };
+
+    // read failed
+    reader.onabort = () => console.log('file reading was aborted');
+    reader.onerror = () => console.log('file reading has failed');
+  };
+
   render() {
-    const files = [top,undef,solarImage,csv,pdf,mp4]; 
+
     const active = this.state.active;
-    return (
-      <div>
-      <button onClick={()=> this.setState({active: this.state.active +1})}>
-        RENDER
+    const files = this.state.files;
+    const isLoading = this.state.isLoading;
+    console.log('ACTIVE', this.files[active])
+    if (isLoading) return <div>loading...</div>
+    if (files.length > 0) {
+      return <div>
+        <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
+          NEXT
       </button>
-    <FileViewer
-      fileType={getFileType(files[active])}
-      filePath={files[active]}
-    />
-    </div>
-    )
+        <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
+          PREV
+      </button>
+        <FileViewer
+          fileType={getFileType(this.files[active])}
+          filePath={files[active]}
+        />
+      </div>
+    } else {
+      return <div>files load failed :/</div>
+    }
   }
 }
 
