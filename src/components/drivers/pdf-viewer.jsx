@@ -3,7 +3,7 @@
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 import PDFJS from 'pdfjs-dist';
-// import  'pdfjs-dist/web/pdf_viewer';
+import { dataURItoBinary } from '../../utils/decodeHelper'
 
 const INCREASE_PERCENTAGE = 0.2;
 const DEFAULT_SCALE = 1.1;
@@ -76,7 +76,11 @@ export default class PDFDriver extends React.Component {
   }
 
   componentDidMount() {
+    PDFJS.GlobalWorkerOptions.workerSrc =
+    '../../node_modules/pdfjs-dist/build/pdf.worker.js';
     const { filePath } = this.props;
+    const fileArray = dataURItoBinary(filePath);
+    console.log(filePath);
     const containerWidth = this.container.offsetWidth;
     PDFJS.getDocument(filePath, null, null, this.progressCallback.bind(this)).then((pdf) => {
       this.setState({ pdf, containerWidth });

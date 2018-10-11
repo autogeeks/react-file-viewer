@@ -1,13 +1,14 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
 import 'styles/main.scss';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FileViewer from './components/file-viewer';
 import sampleHouse from '../example_files/SampleHouse.wexbim';
 import solarImage from '../example_files/02-USVI-Solar.jpg';
 import top from '../example_files/top.png'
-import undef from '../example_files/undefined_object.png'
+import undef from '../example_files/undefined_object.png';
 import docx from '../example_files/SampleSpec.docx';
 import doc from '../example_files/sample.doc';
 import csv from '../example_files/Total_Crime.csv';
@@ -26,7 +27,6 @@ const getFileType = (file)=>{
   return extension[0];
 }
 
-
 class renderFiles extends React.Component {
   constructor(props) {
     super(props);
@@ -36,16 +36,19 @@ class renderFiles extends React.Component {
       files: []
     }
 
-    this.files = [top, undef, solarImage, csv, pdf, mp4, mp3, mov, avi ];
+    this.files = [solarImage, top, csv, pdf, mp4, docx, doc, xlsx, avi, mp3, rtf];
   }
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    this.files.map(file => this.loadFiles(file));
+    this.files.map(file => {
+      const fileType = getFileType(file);
+      this.loadFiles(file, fileType);
+    });
     this.setState({ isLoading: false });
   }
 
-  loadFiles(file) {
+  loadFiles(file, fileType) {
     // Create XHR and FileReader objects
     var xhr = new XMLHttpRequest();
 
@@ -56,23 +59,27 @@ class renderFiles extends React.Component {
     xhr.onload = function () {
       if (xhr.status === 200) {
         // Load blob as Data URL
-        this.readFiles(xhr.response);
+        this.readFiles(xhr.response, fileType);
       }
     }.bind(this);
     // Send XHR
     xhr.send();
   }
 
-  readFiles(rawFile) {
-  
+  readFiles(rawFile, fileType) {
+    console.log(rawFile);
     // init reader
     const reader = new FileReader();
     // file to uri
     reader.readAsDataURL(rawFile);
-    
+
     // file read success
     reader.onload = () => {
-      this.setState({ files: [...this.state.files, reader.result] });
+      const newFile = {
+        data: reader.result,
+        type: fileType
+      }
+      this.setState({ files: [...this.state.files, newFile] });
       return;
     };
 
@@ -86,19 +93,19 @@ class renderFiles extends React.Component {
     const active = this.state.active;
     const files = this.state.files;
     const isLoading = this.state.isLoading;
-    console.log('ACTIVE', this.files[active])
+
     if (isLoading) return <div>loading...</div>
-    if (files.length > 0) {
+    if (files.length === this.files.length) {
       return <div>
+      <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
+        PREV
+    </button>
         <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
           NEXT
       </button>
-        <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
-          PREV
-      </button>
         <FileViewer
-          fileType={getFileType(this.files[active])}
-          filePath={files[active]}
+          fileType={files[active].type}
+          filePath={files[active].data}
         />
       </div>
     } else {

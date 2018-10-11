@@ -4,12 +4,14 @@ import React, { Component } from 'react';
 
 import ReactDataGrid from 'react-data-grid';
 import CSV from 'comma-separated-values';
+import { dataURItoText } from '../../utils/decodeHelper'
 
 class CsvViewer extends Component {
 
-  static parse(data) {
+  static parse(filePath, fileType) {
     const rows = [];
     const columns = [];
+    const data =  fileType === 'csv' ? dataURItoText(filePath) : filePath;
 
     new CSV(data).forEach((array) => {
       if (columns.length < 1) {
@@ -36,11 +38,11 @@ class CsvViewer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = CsvViewer.parse(props.data);
+    this.state = CsvViewer.parse(props.filePath, props.fileType);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState(CsvViewer.parse(nextProps.data));
+  componentDidUpdate(prevProps) {
+    if(this.props.filePath !== prevProps.filePath) this.setState(CsvViewer.parse(this.props.filePath, this.props.fileType));
   }
 
   render() {

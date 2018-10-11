@@ -37,14 +37,14 @@ inquirer.prompt([
     stdio: [0, 1, 2]
   };
 
-  //run tests
-  try {
-    console.log(runColor('running tests'));
-    execSync(jestCommand);
-  } catch (e) {
-    console.log(errColor('Tests failed. Aborting publish.'));
-    return;
-  }
+  // //run tests
+  // try {
+  //   console.log(runColor('running tests'));
+  //   execSync(jestCommand);
+  // } catch (e) {
+  //   console.log(errColor('Tests failed. Aborting publish.'));
+  //   return;
+  // }
 
   // make sure we're on the master branch
   const branch = execSync(branchCommand);

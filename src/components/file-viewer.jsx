@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import 'styles/main.scss';
-import withFetching from './fetch-wrapper';
 
 import {
   CsvViewer,
@@ -14,16 +13,10 @@ import {
   PDFViewer,
   UnsupportedViewer,
   PhotoViewerWrapper,
-  AudioViewer,
+  AudioViewer
 } from './drivers';
 
 class FileViewer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }
 
   componentDidMount() {
     const container = document.getElementById('pg-viewer');
@@ -35,11 +28,10 @@ class FileViewer extends Component {
   getDriver() {
     switch (this.props.fileType) {
       case 'csv': {
-        return withFetching(CsvViewer, this.props);
+        return CsvViewer;
       }
       case 'xlsx': {
-        const newProps = Object.assign({}, this.props, { responseType: 'arraybuffer' });
-        return withFetching(XlsxViewer, newProps);
+        return XlsxViewer;
       }
       case 'jpg':
       case 'jpeg':
@@ -71,7 +63,7 @@ class FileViewer extends Component {
   }
 
   render() {
-    const Driver = this.getDriver(this.props);
+    const Driver = this.getDriver();
     return (
       <div className="pg-viewer-wrapper">
         <div className="pg-viewer" id="pg-viewer">
