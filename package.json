@@ -1,12 +1,12 @@
 {
-  "name": "testcenter-fileviewer",
+  "name": "react-file-viewer",
   "version": "1.1.0",
   "description": "Extendable file viewer for web",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ViljarVoidula/react-file-viewer.git"
+    "url": "git+https://github.com/autogeeks/react-file-viewer.git"
   },
   "scripts": {
     "dev": "webpack --mode development --watch",
@@ -35,6 +35,10 @@
     {
       "name": "Viljar Võidula",
       "email": "viljar@testreel.com"
+    },
+    {
+      "name": "Saulo Machado",
+      "email": "to@saulomachado.com"
     }
   ],
   "license": "MIT",
@@ -75,14 +79,14 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.1",
-    "webpack": "2.5.1",
+    "webpack": "4.25.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
     "comma-separated-values": "^3.6.4",
     "mammoth": "1.4.6",
-    "pdfjs-dist": "2.0.489",
+    "pdfjs-dist": "2.0.943",
     "prop-types": "^15.5.10",
     "react": "^16.5.2",
     "react-data-grid": "^4.0.8",
