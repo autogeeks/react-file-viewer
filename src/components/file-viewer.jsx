@@ -13,10 +13,22 @@ import {
   PDFViewer,
   UnsupportedViewer,
   PhotoViewerWrapper,
-  AudioViewer
+  AudioViewer,
 } from './drivers';
 
 class FileViewer extends Component {
+
+  constructor() {
+    super();
+    const container = document.getElementById('pg-viewer');
+    const heightVal = container ? container.clientHeight : 0;
+    const widthVal = container ? container.clientWidth : 0;
+
+    this.state = {
+      height: heightVal,
+      width: widthVal,
+    };
+  }
 
   componentDidMount() {
     const container = document.getElementById('pg-viewer');

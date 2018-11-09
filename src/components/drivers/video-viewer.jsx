@@ -37,6 +37,7 @@ class VideoViewer extends Component {
             onCanPlay={e => this.onCanPlay(e)}
             src={this.props.filePath}
           >
+
             Video playback is not supported by your browser.
           </video>
         </div>

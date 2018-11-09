@@ -62,7 +62,9 @@ export default class extends Component {
   }
 
   onMouseMove(event) {
-    const { savedX, savedY, savedLongitude, savedLatitude } = this.state;
+    const {
+      savedX, savedY, savedLongitude, savedLatitude,
+    } = this.state;
 
     if (this.state.manualControl) {
       const newLongitude = (savedX - event.clientX) * 0.1 + savedLongitude;

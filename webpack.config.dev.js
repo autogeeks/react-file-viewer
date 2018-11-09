@@ -31,6 +31,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
         include: path.resolve(__dirname, './src'),
         loader: 'babel-loader',
         options: {
@@ -68,9 +69,10 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)$/,
-        loader: 'eslint-loader',
+        exclude: /node_modules/,
         include: path.resolve(__dirname, 'src'),
         enforce: 'pre',
+        loader: 'eslint-loader',
       },
       {
         test: [/\.wexbim$/, /\.jpg$/, /\.docx$/, /\.csv$/, /\.mp4$/, /\.xlsx$/, /\.doc$/, /\.avi$/, /\.webm$/, /\.mov$/, /\.mp3$/, /\.rtf$/, /\.pdf$/],

@@ -14,6 +14,7 @@ export default class PhotoViewer extends Component {
     this.props.texture.image.setAttribute('class', 'photo');
     document.getElementById('pg-photo-container').appendChild(this.props.texture.image);
   }
+
   componentDidUpdate(prevProps) {
     if (this.props.texture.image && this.props.texture.image !== prevProps.texture.image) {
       const { originalWidth, originalHeight } = this.props;

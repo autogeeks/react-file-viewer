@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 
 import CsvViewer from './csv-viewer';
-import { dataURInoType, dataURItoBinary } from '../../utils/decodeHelper';
+import { dataURItoBinary } from '../../utils/decodeHelper';
 
 class XlxsViewer extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class XlxsViewer extends Component {
   }
 
   parse() {
-    const UintArray = dataURItoBinary(this.props.filePath)
+    const UintArray = dataURItoBinary(this.props.filePath);
     const workbook = XLSX.read(UintArray, { type: 'array' });
     const names = Object.keys(workbook.Sheets);
     const sheets = names.map(name => (
@@ -44,13 +44,12 @@ class XlxsViewer extends Component {
 
   renderSheetData(sheet) {
     return (
-      <CsvViewer fileType={this.props.fileType} filePath={sheet}/>
+      <CsvViewer fileType={this.props.fileType} filePath={sheet} />
     );
   }
 
   render() {
     const { sheets, names, curSheetIndex } = this.state;
-    debugger;
     return (
       <div className="spreadsheet-viewer">
         {this.renderSheetNames(names)}

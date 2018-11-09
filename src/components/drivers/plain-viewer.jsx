@@ -2,14 +2,14 @@
 
 import React from 'react';
 
-import { dataURItoText } from '../../utils/decodeHelper'
+import { dataURItoText } from '../../utils/decodeHelper';
 
 const PlainViewer = (props) => {
-    const data = dataURItoText(props.filePath);
+  const data = dataURItoText(props.filePath);
 
-    return (
-      <div>{data}</div>
-    );
-}
+  return (
+    <div>{data}</div>
+  );
+};
 
 export default PlainViewer;

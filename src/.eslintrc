@@ -12,6 +12,7 @@
     "max-len": [0],
     "react/no-unused-prop-types": [0],
     "react/no-did-mount-set-state": [0],
+    "linebreak-style": [0, "error", "windows"]
   },
   "extends": "airbnb",
   "globals": {

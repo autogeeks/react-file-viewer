@@ -18,16 +18,16 @@ export default class extends Component {
           { arrayBuffer: jsonFile.response },
           { includeDefaultStyleMap: true },
         )
-        .then((result) => {
-          const docEl = document.createElement('div');
-          docEl.className = 'document-container';
-          docEl.innerHTML = result.value;
-          document.getElementById('docx').innerHTML = docEl.outerHTML;
-        })
-        .catch((a) => {
-          console.log('alexei: something went wrong', a);
-        })
-        .done();
+          .then((result) => {
+            const docEl = document.createElement('div');
+            docEl.className = 'document-container';
+            docEl.innerHTML = result.value;
+            document.getElementById('docx').innerHTML = docEl.outerHTML;
+          })
+          .catch((a) => {
+            console.log('alexei: something went wrong', a);
+          })
+          .done();
       }
     };
   }

@@ -3,7 +3,6 @@
 import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 import PDFJS from 'pdfjs-dist';
-import { dataURItoBinary } from '../../utils/decodeHelper'
 
 const INCREASE_PERCENTAGE = 0.2;
 const DEFAULT_SCALE = 1.1;
@@ -52,7 +51,7 @@ class PDFPage extends React.Component {
   render() {
     return (
       <div className="pdf-canvas">
-        <VisibilitySensor onChange={this.onChange} partialVisibility >
+        <VisibilitySensor onChange={this.onChange} partialVisibility>
           <canvas ref={node => this.canvas = node} width="670" height="870" />
         </VisibilitySensor>
       </div>
@@ -76,10 +75,9 @@ export default class PDFDriver extends React.Component {
   }
 
   componentDidMount() {
-    PDFJS.GlobalWorkerOptions.workerSrc =
-    '../../node_modules/pdfjs-dist/build/pdf.worker.js';
+    PDFJS.GlobalWorkerOptions.workerSrc = '../../node_modules/pdfjs-dist/build/pdf.worker.js';
     const { filePath } = this.props;
-    const fileArray = dataURItoBinary(filePath);
+    // const fileArray = dataURItoBinary(filePath);
     console.log(filePath);
     const containerWidth = this.container.offsetWidth;
     PDFJS.getDocument(filePath, null, null, this.progressCallback.bind(this)).then((pdf) => {
@@ -116,33 +114,42 @@ export default class PDFDriver extends React.Component {
     if (!pdf) return null;
     const pages = Array.apply(null, { length: pdf.numPages });
     return pages.map((v, i) => (
-      (<PDFPage
-        index={i + 1}
-        pdf={pdf}
-        containerWidth={containerWidth}
-        zoom={zoom * INCREASE_PERCENTAGE}
-      />)
+      (
+        <PDFPage
+          key={1}
+          index={i + 1}
+          pdf={pdf}
+          containerWidth={containerWidth}
+          zoom={zoom * INCREASE_PERCENTAGE}
+        />
+      )
     ));
   }
 
   renderLoading() {
     if (this.state.pdf) return null;
-    return (<div className="pdf-loading">LOADING ({this.state.percent}%)</div>);
+    return (
+      <div className="pdf-loading">
+LOADING (
+        {this.state.percent}
+%)
+      </div>
+    );
   }
 
   render() {
     return (
       <div className="pdf-viewer-container">
-        <div className="pdf-viewer" ref={node => this.container = node} >
+        <div className="pdf-viewer" ref={node => this.container = node}>
           <div className="pdf-controlls-container">
-            <div className="view-control" onClick={this.increaseZoom} >
-              <i className="zoom-in" />
+            <div className="view-control" onClick={this.increaseZoom}>
+              <i className="zoom-in" /> in
             </div>
             <div className="view-control" onClick={this.resetZoom}>
-              <i className="zoom-reset" />
+              <i className="zoom-reset" /> res
             </div>
             <div className="view-control" onClick={this.reduceZoom}>
-              <i className="zoom-out" />
+              <i className="zoom-out" /> out
             </div>
           </div>
           {this.renderLoading()}
