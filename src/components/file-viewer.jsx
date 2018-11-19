@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import 'styles/main.scss';
+import withFetching from './fetch-wrapper';
 
 import {
   CsvViewer,
@@ -40,10 +41,10 @@ class FileViewer extends Component {
   getDriver() {
     switch (this.props.fileType) {
       case 'csv': {
-        return CsvViewer;
+        return withFetching(CsvViewer, this.props);
       }
       case 'xlsx': {
-        return XlsxViewer;
+        return withFetching(XlsxViewer, this.props);
       }
       case 'jpg':
       case 'jpeg':
