@@ -14,7 +14,6 @@ class CsvViewer extends Component {
 
     new CSV(data).forEach((array) => {
       if (columns.length < 1) {
-        debugger;
         array.forEach((cell, idx) => {
           columns.push({
             key: `key-${idx}`,

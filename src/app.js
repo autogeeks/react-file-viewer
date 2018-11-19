@@ -93,10 +93,14 @@ class renderFiles extends React.Component {
     const active = this.state.active;
     const files = this.state.files;
     const isLoading = this.state.isLoading;
+    const containerStyle = {
+      width: '100%',
+      height: '100%',
+    }
 
     if (isLoading) return <div>loading...</div>
     if (files.length === this.files.length) {
-      return <div>
+      return <div style={containerStyle}>
       <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
         PREV
     </button>

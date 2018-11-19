@@ -1,33 +1,27 @@
 // Copyright (c) 2017 PlanGrid, Inc.
 
 import React, { Component } from 'react';
+import Viewer from 'react-viewer';
+import 'react-viewer/dist/index.css';
 
 import 'styles/photo-viewer.scss';
 
 export default class PhotoViewer extends Component {
-  componentDidMount() {
-    const { originalWidth, originalHeight } = this.props;
-    const imageDimensions = this.getImageDimensions.call(this, originalWidth, originalHeight);
 
-    this.props.texture.image.style.width = `${imageDimensions.width}px`;
-    this.props.texture.image.style.height = `${imageDimensions.height}px`;
-    this.props.texture.image.setAttribute('class', 'photo');
-    document.getElementById('pg-photo-container').appendChild(this.props.texture.image);
+  constructor() {
+    super();
+
+    this.container = null;
+    this.state = {
+      visible: true,
+      noClose: true,
+      noNavbar: true,
+      noImgDetails: true,
+    };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.texture.image && this.props.texture.image !== prevProps.texture.image) {
-      const { originalWidth, originalHeight } = this.props;
-      const imageDimensions = this.getImageDimensions.call(this, originalWidth, originalHeight);
-      const container = document.getElementById('pg-photo-container');
-
-      this.props.texture.image.style.width = `${imageDimensions.width}px`;
-      this.props.texture.image.style.height = `${imageDimensions.height}px`;
-      this.props.texture.image.setAttribute('class', 'photo');
-      // Removing old container before creating new one
-      document.getElementById('pg-photo-container').removeChild(container.childNodes[0]);
-      document.getElementById('pg-photo-container').appendChild(this.props.texture.image);
-    }
+  componentDidMount() {
+    this.setState({ visible: true });
   }
 
   getImageDimensions(originalWidth, originalHeight) {
@@ -56,12 +50,22 @@ export default class PhotoViewer extends Component {
 
   render() {
     const containerStyles = {
-      width: `${this.props.width}px`,
-      height: `${this.props.height}px`,
+      width: '100%',
+      height: '100%',
     };
 
     return (
-      <div style={containerStyles} className="photo-viewer-container" id="pg-photo-container" />
+      <div style={containerStyles}>
+        <div className="container" style={containerStyles} ref={(el) => { this.container = el; }} />
+        <Viewer
+          container={this.container}
+          visible={this.state.visible}
+          noClose={this.state.noClose}
+          noNavbar={this.state.noNavbar}
+          noImgDetails={this.state.noImgDetails}
+          images={[{ src: this.props.filePath, alt: '' }]}
+        />
+      </div>
     );
   }
 }
