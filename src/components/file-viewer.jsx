@@ -10,7 +10,7 @@ import {
   VideoViewer,
   XlsxViewer,
   XBimViewer,
-  PDFViewer,
+  PDFDefaultViewer,
   UnsupportedViewer,
   PhotoViewerWrapper,
   AudioViewer,
@@ -53,7 +53,7 @@ class FileViewer extends Component {
         return PhotoViewerWrapper;
       }
       case 'pdf': {
-        return PDFViewer;
+        return PDFDefaultViewer;
       }
       case 'docx': {
         return DocxViewer;

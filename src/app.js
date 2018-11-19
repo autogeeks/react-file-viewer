@@ -36,7 +36,7 @@ class renderFiles extends React.Component {
       files: []
     }
 
-    this.files = [solarImage, top, csv, pdf, mp4, docx, doc, xlsx, avi, mp3, rtf];
+    this.files = [solarImage, top, pdf, mp4, docx, doc, avi, mp3, rtf, sampleHouse, undef, photo360, webm, mov];
   }
 
   componentDidMount() {
@@ -59,14 +59,14 @@ class renderFiles extends React.Component {
     xhr.onload = function () {
       if (xhr.status === 200) {
         // Load blob as Data URL
-        this.readFiles(xhr.response, fileType);
+        this.readFiles(xhr.response, fileType, file);
       }
     }.bind(this);
     // Send XHR
     xhr.send();
   }
 
-  readFiles(rawFile, fileType) {
+  readFiles(rawFile, fileType, fileUrl) {
     console.log(rawFile);
     // init reader
     const reader = new FileReader();
@@ -77,7 +77,8 @@ class renderFiles extends React.Component {
     reader.onload = () => {
       const newFile = {
         data: reader.result,
-        type: fileType
+        type: fileType,
+        url: fileUrl
       }
       this.setState({ files: [...this.state.files, newFile] });
       return;
@@ -100,18 +101,20 @@ class renderFiles extends React.Component {
 
     if (isLoading) return <div>loading...</div>
     if (files.length === this.files.length) {
-      return <div style={containerStyle}>
-      <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
-        PREV
-    </button>
-        <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
-          NEXT
-      </button>
-        <FileViewer
-          fileType={files[active].type}
-          filePath={files[active].data}
-        />
-      </div>
+      return (
+        <div style={containerStyle}>
+          <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
+            PREV
+          </button>
+          <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
+            NEXT
+          </button>
+          <FileViewer
+            fileType={files[active].type}
+            filePath={files[active].url}
+          />
+        </div>
+      );
     } else {
       return <div>files load failed :/</div>
     }

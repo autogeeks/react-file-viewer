@@ -3,7 +3,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+ 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -93,6 +94,12 @@ module.exports = {
       inject: true,
       template: path.resolve(__dirname, './index.html'),
     }),
+    new CopyWebpackPlugin([
+      { 
+        from: 'static',
+        to: ''
+      },
+    ]),
     new webpack.HotModuleReplacementPlugin(),
   ],
 };
