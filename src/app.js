@@ -128,8 +128,8 @@ class renderFiles extends React.Component {
           </div>
           <div style={contentStyle}>
             <FileViewer
-              fileType="pdf"
-              filePath="http://192.168.2.40:8080/dw-workflow-api/api/task/53faa7fb-d6e9-11e8-a6a7-1efdb938104d/variables/invoiceDocument/data&token=eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkZW1vIiwiaWF0IjoxNTQyODIyMjkzLCJzdWIiOiJkdyIsImlzcyI6ImR3IiwiZXhwIjoxNTQyOTA4NjkzfQ.5UGj-F-e2qh-xzNQcs1iijtUUGnWSdiHpMMZ-fDpT40"
+              fileType={files[active].type}
+              filePath={files[active].url}
               />
           </div>
         </div>
