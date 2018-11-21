@@ -21,6 +21,8 @@ import mov from '../example_files/step.mov'
 import mp3 from '../example_files/sample.mp3'
 import rtf from '../example_files/sample.rtf';
 import pdf from '../example_files/sample.pdf';
+import { inline } from 'mammoth/lib/images';
+import { nonFreshElement } from 'mammoth/lib/html';
 
 const getFileType = (file)=>{
   const extension = file.match(/([^./]+$)/);
@@ -98,21 +100,38 @@ class renderFiles extends React.Component {
       width: '100%',
       height: '100%',
     }
+    const menuStyle = {
+      height: '24px',
+      width: '100%',
+    }
+    const contentStyle = {
+      border: 'none',
+      overflow: 'hidden',
+      boxSizing:'border-box',
+      marginTop: '-24px',
+      paddingTop: '24px',
+      height: 'inherit',
+      width: 'inherit',
+    }
 
     if (isLoading) return <div>loading...</div>
     if (files.length === this.files.length) {
       return (
         <div style={containerStyle}>
-          <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
-            PREV
-          </button>
-          <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
-            NEXT
-          </button>
-          <FileViewer
-            fileType={files[active].type}
-            filePath={files[active].url}
-          />
+          <div style={menuStyle}>
+            <button disabled={active === 0} onClick={() => this.setState({ active: active - 1 })}>
+              PREV
+            </button>
+            <button disabled={active === files.length - 1} onClick={() => this.setState({ active: active + 1 })}>
+              NEXT
+            </button>
+          </div>
+          <div style={contentStyle}>
+            <FileViewer
+              fileType={files[active].type}
+              filePath={files[active].url}
+              />
+          </div>
         </div>
       );
     } else {

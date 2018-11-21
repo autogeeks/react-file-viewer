@@ -31,9 +31,7 @@ export default class XBimViewer extends Component {
     }
 
     return (
-      <div className="pg-driver-view">
-        <canvas id="xbim-viewer" />
-      </div>
+      <canvas id="xbim-viewer" />
     );
   }
 }
