@@ -1654,9 +1654,11 @@ function webViewerInitialized() {
   });
   try {
     let fileOpenUrl = file;
+    let paramSeparator = '?';
     for (var param in params) {
       if (param != 'file') {
-        fileOpenUrl = fileOpenUrl + '&' + param + '=' + params[param];
+        fileOpenUrl = fileOpenUrl + paramSeparator + param + '=' + params[param];
+        paramSeparator = '&';
       }
     }
     webViewerOpenFileViaURL(fileOpenUrl);

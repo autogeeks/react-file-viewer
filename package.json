@@ -88,7 +88,6 @@
   "dependencies": {
     "comma-separated-values": "^3.6.4",
     "mammoth": "1.4.6",
-    "pdfjs-dist": "2.0.943",
     "prop-types": "^15.5.10",
     "react": "^16.5.2",
     "react-data-grid": "^4.0.8",

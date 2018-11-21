@@ -4,7 +4,7 @@ export default class PDFDefaultDriver extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filePath: `/pdfjsviewer/viewer.html?file=${this.props.filePath}`,
+      filePath: `/pdfjs/web/viewer.html?file=${this.props.filePath}`,
     };
   }
 
