@@ -2,6 +2,7 @@
 
 const path = require('path');
 const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, './dist');
 const APP_DIR = path.resolve(__dirname, './src');
@@ -84,6 +85,14 @@ const config = {
       },
     ],
   },
+  plugins: [
+    new CopyWebpackPlugin([
+      { 
+        from: 'static',
+        to: ''
+      },
+    ]),
+  ],
 };
 
 module.exports = config;

@@ -1562,7 +1562,7 @@ var validateFileURL = void 0;
           protocol = _ref14.protocol;
 
       if (origin !== viewerOrigin && protocol !== 'blob:') {
-        throw new Error('file origin does not match viewer\'s');
+        console.warn('file origin does not match viewer\'s');
       }
     } catch (ex) {
       var message = ex && ex.message;
@@ -1653,7 +1653,13 @@ function webViewerInitialized() {
     PDFViewerApplication.pdfSidebar.toggle();
   });
   try {
-    webViewerOpenFileViaURL(file);
+    let fileOpenUrl = file;
+    for (var param in params) {
+      if (param != 'file') {
+        fileOpenUrl = fileOpenUrl + '&' + param + '=' + params[param];
+      }
+    }
+    webViewerOpenFileViaURL(fileOpenUrl);
   } catch (reason) {
     PDFViewerApplication.l10n.get('loading_error', null, 'An error occurred while loading the PDF.').then(function (msg) {
       PDFViewerApplication.error(msg, reason);
@@ -4438,7 +4444,7 @@ var defaultOptions = {
     kind: OptionKind.API
   },
   cMapUrl: {
-    value: '../web/cmaps/',
+    value: './web/cmaps/',
     kind: OptionKind.API
   },
   disableAutoFetch: {
