@@ -6,7 +6,7 @@ Extendable file viewer for web
 ## Supported file formats:
 
  - Images: png, jpeg, gif, bmp, including 360-degree images
- - pdf
+ - pdf (See PDFJS Viewer Configuration)
  - csv
  - xslx
  - docx
@@ -62,6 +62,34 @@ class MyComponent extends Component {
   }
 }
 ```
+### PDFJS Viewer Configuration
+In order to view PDF files we use PDFJS default viewer with few modifications.
+
+* Allow CORS
+* Include aditional URL parameters in the final request
+
+Follow the steps to configure the PDFJS Viewer in your project (Only required if you need the viewer to show PDF files):
+1. Install copy-webpack-plugin
+```
+npm install copy-webpack-plugin --save-dev
+```
+2. Add the plugin to your webpack configuration (development and production)
+```
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+...
+module.exports = {
+  ...
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: 'node_modules/react-file-viewer/static',
+        to: '',
+      } 
+    ]),
+  ]
+}
+
+```
 
 ## Development
 
@@ -92,6 +120,20 @@ To do this run:
 ```
 npm run jest --updateSnapshot
 ```
+
+### To link with another local project
+In the viewer project, run:
+```
+npm run build
+npm link
+```
+
+In the other project, link with the following command:
+```
+npm link react-file-viewer
+```
+
+
 
 ### To run the linter
 
