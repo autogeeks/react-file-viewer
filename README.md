@@ -133,8 +133,6 @@ In the other project, link with the following command:
 npm link react-file-viewer
 ```
 
-
-
 ### To run the linter
 
 `make lint`
@@ -157,3 +155,7 @@ case 'rtf':
 ## Roadmap
 
 - Remove ignored linting rules and fix them
+- Fix and Enhance DOCX, XLSX and CSV drivers
+- Add TIF driver
+- Add HOCR support
+- Implement a React PDF Viewer
