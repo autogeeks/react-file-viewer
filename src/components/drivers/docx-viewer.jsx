@@ -34,8 +34,11 @@ export default class extends Component {
 
   render() {
     return (
-      <div id="docx">
-        <Loading />
-      </div>);
+      <div className="docx-viewer-wrapper">
+        <div id="docx">
+          <Loading />
+        </div>
+      </div>
+    );
   }
 }
