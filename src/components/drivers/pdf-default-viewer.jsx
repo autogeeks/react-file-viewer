@@ -3,14 +3,16 @@ import React from 'react';
 export default class PDFDefaultDriver extends React.Component {
   constructor(props) {
     super(props);
+    const path = `/pdfjs/web/viewer.html?file=${props.filePath.replace('?', '&')}`;
+
     this.state = {
-      filePath: `/pdfjs/web/viewer.html?file=${this.props.filePath}`,
+      url: path,
     };
   }
 
   render() {
     return (
-      <iframe title="PDFJSVIEWER" src={this.state.filePath} />
+      <iframe title="PDFJSVIEWER" src={this.state.url} />
     );
   }
 }
